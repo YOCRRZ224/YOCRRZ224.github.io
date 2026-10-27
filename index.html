@@ -477,40 +477,190 @@ i {
 i {
     
 }
+
 .contributions {
-  padding: 6rem 2rem;
-  text-align: center;
+  --contrib-accent: #C45A3D;
+  --contrib-cell: 11px;
+  --contrib-gap: 4px;
+
+  padding: 6rem 8vw;
+  text-align: left;
+}
+
+.contributions > h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
 }
 
 .contrib-card {
-  margin-top: 2rem;
-  padding: 2rem;
-    background:
-    rgba(255,255,255,0.45);
+  min-width: 0;
+  padding: clamp(1rem, 3vw, 2rem);
 
-  border:
-    1px solid rgba(0,0,0,0.08);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
 
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-border-radius: 12px;
-  transition:
-    transform 0.35s ease,
-    border-color 0.35s ease,
-    background 0.35s ease;
-
-  overflow-x: auto;
 }
 
-.contrib-card img {
+.contrib-calendar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+}
+
+.contrib-calendar-head a {
+  color: var(--contrib-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.contrib-calendar-head a:hover {
+  text-decoration: underline;
+}
+
+.contrib-scroll {
   max-width: 100%;
-  filter: saturate(0.85) contrast(1.1);
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(196, 90, 61, 0.45) transparent;
+}
+
+.contrib-months {
+  display: grid;
+  grid-template-columns: repeat(53, var(--contrib-cell));
+  gap: var(--contrib-gap);
+  margin-left: 34px;
+  margin-bottom: 8px;
+
+  color: #777;
+  font: 10px "IBM Plex Mono", monospace;
+  height: 14px;
+}
+
+.contrib-months span {
+  white-space: nowrap;
+}
+
+.contrib-chart {
+  display: flex;
+  gap: 7px;
+  width: max-content;
+}
+
+.contrib-weekdays {
+  flex: 0 0 27px;
+  display: grid;
+  grid-template-rows: repeat(7, var(--contrib-cell));
+  gap: var(--contrib-gap);
+
+  color: #777;
+  font: 9px/var(--contrib-cell) "IBM Plex Mono", monospace;
+}
+
+.contrib-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--contrib-cell);
+  grid-template-rows: repeat(7, var(--contrib-cell));
+  gap: var(--contrib-gap);
+}
+
+.contrib-cell,
+.contrib-legend i {
+  display: block;
+  width: var(--contrib-cell);
+  height: var(--contrib-cell);
+  border-radius: 2px;
+  background: rgba(14, 14, 14, 0.07);
+}
+
+.contrib-cell[data-level="1"],
+.contrib-legend i[data-level="1"] {
+  background: #E8C2B5;
+}
+
+.contrib-cell[data-level="2"],
+.contrib-legend i[data-level="2"] {
+  background: #D99A83;
+}
+
+.contrib-cell[data-level="3"],
+.contrib-legend i[data-level="3"] {
+  background: #C45A3D;
+}
+
+.contrib-cell[data-level="4"],
+.contrib-legend i[data-level="4"] {
+  background: #853B2A;
+}
+
+.contrib-cell {
+  transition: outline-color 0.15s ease, transform 0.15s ease;
+}
+
+.contrib-cell:hover {
+  outline: 1px solid var(--contrib-accent);
+  outline-offset: 1px;
+}
+
+.contrib-legend {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  margin-top: 1rem;
+
+  color: #777;
+  font: 10px "IBM Plex Mono", monospace;
+}
+
+.contrib-legend span:first-child {
+  margin-right: 3px;
+}
+
+.contrib-legend span:last-child {
+  margin-left: 3px;
 }
 
 .contrib-meta {
   margin-top: 1rem;
-  font-size: 0.85rem;
-  opacity: 0.6;
+  color: #777;
+  font: 11px/1.6 "IBM Plex Mono", monospace;
 }
+
+@media (max-width: 600px) {
+  .contributions {
+    padding: 4rem 6vw;
+  }
+
+  .contrib-card {
+    padding: 1rem;
+  }
+
+  .contributions {
+    --contrib-cell: 9px;
+    --contrib-gap: 3px;
+  }
+
+  .contrib-calendar-head {
+    font-size: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contrib-cell {
+    transition: none;
+  }
+}
+
 #typed {
   position: relative;
   display: inline-flex;
@@ -2213,27 +2363,58 @@ i m <span>Aditya</span> umm better known as <span>yocrrz</span> i do code and br
 
   </div>
 </section>
+
 <section class="contributions">
   <h2>CONTRIBUTIONS</h2>
 
   <div class="contrib-card">
-    <img
-      src="https://ghchart.rshah.org/0E0E0E/YOCRRZ224"
-      alt="GitHub contribution graph"
-    />
-   <img
-      src="https://github-readme-activity-graph.vercel.app/graph?username=Yocrrz224&bg_color=1a1b27&color=70a5fd&line=70a5fd&point=a9b1d6&area=true&hide_border=true"
-      alt="GitHub contribution graph"
-    />
-    <p class="contrib-meta"> 500+ contributions in the last year</p>
+    <div class="contrib-calendar-head">
+      <span id="contrib-total">Loading contributions...</span>
+      <a href="https://github.com/YOCRRZ224"
+         target="_blank"
+         rel="noopener noreferrer">GitHub ↗</a>
+    </div>
+
+    <div class="contrib-scroll">
+      <div class="contrib-months" id="contrib-months"></div>
+
+      <div class="contrib-chart">
+        <div class="contrib-weekdays" aria-hidden="true">
+          <span>Mon</span><span></span><span>Wed</span>
+          <span></span><span>Fri</span><span></span><span></span>
+        </div>
+        <div
+          class="contrib-grid"
+          id="contrib-grid"
+          role="group"
+          aria-label="GitHub contributions by day">
+        </div>
+      </div>
+    </div>
+
+    <div class="contrib-legend" aria-hidden="true">
+      <span>Less</span>
+      <i data-level="0"></i>
+      <i data-level="1"></i>
+      <i data-level="2"></i>
+      <i data-level="3"></i>
+      <i data-level="4"></i>
+      <span>More</span>
+    </div>
+
+    <p class="contrib-meta" id="contrib-status" role="status">
+      Fetching public GitHub activity...
+    </p>
   </div>
+
   <div class="stats">
-  <div><span id="repo-count">0</span> REPOSITORIES</div>
-  <div><span id="followers">0</span> FOLLOWERS</div>
-  <div><span id="stars">0</span> STARS</div>
-  <div><span id="commits">∞</span> COMMITS</div>
-</div>
+    <div><span id="repo-count">0</span> REPOSITORIES</div>
+    <div><span id="followers">0</span> FOLLOWERS</div>
+    <div><span id="stars">0</span> STARS</div>
+    <div><span id="commits">∞</span> COMMITS</div>
+  </div>
 </section>
+
 <section class="badges">
   <h2>IDK<i class="ph ph-squares-four"></i></h2>
 
@@ -3150,6 +3331,89 @@ if (!latestPosts.length) {
     showStatus("Failed to load blog posts.");
   }
 })();
+
+(async function loadContributionCalendar() {
+  const user = "YOCRRZ224";
+  const grid = document.getElementById("contrib-grid");
+  const months = document.getElementById("contrib-months");
+  const total = document.getElementById("contrib-total");
+  const status = document.getElementById("contrib-status");
+
+  if (!grid || !months || !total || !status) return;
+
+  try {
+    const response = await fetch(
+      `https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(user)}?y=last`
+    );
+
+    if (!response.ok) throw new Error("Contribution API unavailable");
+
+    const data = await response.json();
+    const days = data.contributions;
+
+    if (!Array.isArray(days) || !days.length) {
+      throw new Error("No contribution data returned");
+    }
+
+    grid.replaceChildren();
+    months.replaceChildren();
+
+    const first = new Date(`${days[0].date}T00:00:00Z`);
+    const offset = (first.getUTCDay() + 6) % 7;
+
+    for (let i = 0; i < offset; i++) {
+      const blank = document.createElement("span");
+      blank.className = "contrib-cell";
+      blank.style.visibility = "hidden";
+      blank.setAttribute("aria-hidden", "true");
+      grid.appendChild(blank);
+    }
+
+    let previousMonth = -1;
+
+    days.forEach((day, index) => {
+      const date = new Date(`${day.date}T00:00:00Z`);
+      const week = Math.floor((index + offset) / 7);
+      const count = Number(day.count) || 0;
+      const level = Math.max(0, Math.min(4, Number(day.level) || 0));
+
+      if (date.getUTCMonth() !== previousMonth) {
+        const label = document.createElement("span");
+        label.textContent = date.toLocaleDateString("en", {
+          month: "short",
+          timeZone: "UTC"
+        });
+        label.style.gridColumn = `${week + 1} / span 4`;
+        months.appendChild(label);
+        previousMonth = date.getUTCMonth();
+      }
+
+      const cell = document.createElement("span");
+      cell.className = "contrib-cell";
+      cell.dataset.level = level;
+      cell.title = `${day.date}: ${count} contribution${count === 1 ? "" : "s"}`;
+      cell.setAttribute("aria-label", cell.title);
+
+      grid.appendChild(cell);
+    });
+
+    const count = days.reduce(
+      (sum, day) => sum + (Number(day.count) || 0),
+      0
+    );
+
+    total.textContent = `${count.toLocaleString()} contributions in the last year`;
+    status.textContent = "Public GitHub activity · Live data";
+
+  } catch (error) {
+    console.error("Contribution calendar failed:", error);
+    total.textContent = "Contributions unavailable";
+    status.textContent = "Could not load activity. Try again later.";
+    grid.replaceChildren();
+    months.replaceChildren();
+  }
+})();
+
 </script>
 
 </body>
