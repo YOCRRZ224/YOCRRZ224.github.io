@@ -118,16 +118,25 @@
 </head>
 <body>
 <style>
-    * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@font-face {
+    font-family: 'Comic Code';
+    src: url('https://cdn.yocrrz.is-a.dev/raw/fonts/ComicCode-Regular.otf')
+         format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Audiowide', sans-serif;
-  background: #F6F4EF;
-  color: #0E0E0E;
+    font-family: 'Comic Code', monospace;
+    background: #F6F4EF;
+    color: #0E0E0E;
 }
 body::before {
   content: "";
